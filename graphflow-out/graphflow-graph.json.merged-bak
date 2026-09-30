@@ -93,28 +93,6 @@
         "sessionId": "dialogue-session:1q2waix",
         "jumped": false
       }
-    },
-    {
-      "id": "dialogue-session:hylfgx",
-      "type": "Decision",
-      "content": "dialogue-session session-bc34629d-d92e-49de-a3aa-6c0ef18d57f2 turns=1 tip=dialogue:hylfgx:0001",
-      "metadata": {
-        "kind": "dialogue-session",
-        "record": "{\"id\":\"dialogue-session:hylfgx\",\"name\":\"session-bc34629d-d92e-49de-a3aa-6c0ef18d57f2\",\"turnCount\":1,\"topicTokens\":[\"assistant\",\"fill\",\"reply\"],\"createdAt\":1790759143945,\"updatedAt\":1790759143945,\"tipTurnId\":\"dialogue:hylfgx:0001\"}",
-        "name": "session-bc34629d-d92e-49de-a3aa-6c0ef18d57f2"
-      }
-    },
-    {
-      "id": "dialogue:hylfgx:0001",
-      "type": "Decision",
-      "content": "dialogue-turn #1 Q: (assistant reply fill) | A: 已完成修正，并通过了仓库自带的校验。 ## 改动一：13 处空白占位全部补齐 正文原来有 13 处「引号内一串空格」，分属 6 个角色。按你的两条裁定： | 位置 | 角色 | 填入 | | --- | --- | --- | | [L157](孤章集/焚·燃·夜·雨.md#L157)、[L165](孤章集/焚·燃·…",
-      "metadata": {
-        "kind": "dialogue-turn",
-        "record": "{\"id\":\"dialogue:hylfgx:0001\",\"sessionId\":\"dialogue-session:hylfgx\",\"seq\":1,\"userQuery\":\"(assistant reply fill)\",\"assistantReply\":\"已完成修正，并通过了仓库自带的校验。 ## 改动一：13 处空白占位全部补齐 正文原来有 13 处「引号内一串空格」，分属 6 个角色。按你的两条裁定： | 位置 | 角色 | 填入 | | --- | --- | --- | | [L157](孤章集/焚·燃·夜·雨.md#L157)、[L165](孤章集/焚·燃·夜·雨.md#L165)、[L169](孤章集/焚·燃·夜·雨.md#L169)、[L175](孤章集/焚·燃·夜·雨.md#L175)、[L177](孤章集/焚·燃·夜·雨.md#L177)（共 6 处） | 帮派首领 —— **被击杀的目标** | **马库斯·威廉姆斯** | | [L63](孤章集/焚·燃·夜·雨.md#L63) | 看门保镖（首领最忠心的狗） | 迪特尔·科尔 | | [L71](孤章集/焚·燃·夜·雨.md#L71) | 二把手麾下玩刀的保镖 | 约亨·布伦纳 | | [L79](孤章集/焚·燃·夜·雨.md#L79) | 冲上来的保镖 | 卢卡斯·芬克 | | [L99](孤章集/焚·燃·夜·雨.md#L99)、[L103](孤章集/焚·燃·夜·雨.md#L103) | 三把手的手下（楼梯口喊话者） | 米夏·罗特 | | [L145](孤章集/焚·燃·夜·雨.md#L145) | 三把手 | 恩斯特·法尔肯贝格 | 后 5 个喽啰原作只留了空白、没有名字，按你选的「补齐人名」由我新拟（已逐个查重，与全库不重名）。**这 5 个名字属新增设定，想换成别的直接说。**「Mirage＝玛伦·德莉斯科尔」正文原本已由 [L37](孤章集/焚·燃·夜·雨.md#L37) 的「Maren Driscoll」与元信息括注交代，未改动。 ## 改动二：元信息对齐现状 - [L9](孤章集/焚·燃·夜·雨.md#L9) 关联人物：新增 **马库斯·威廉姆斯（未建档）**（他在本篇出场，按规范 06 第四条应登记）。 - [L11](孤章集/焚·燃·夜·雨.md#L11) 时间线：原「约 2074—2075 年……见年表待裁定项」已失效（年表早把此夜定为 2074 年、冲突清单已清空），改为 **2074 年 10 月 19 日夜—20 日晨**（2064 年 10 月 19 日案发整整十年后）。 派生视图已重新生成并与正文同步：[索引.md](派生视图/索引.md#L190)。`node 工具/派生视图.js` 结果：**错误 0 | 提醒 0**；未建档关联 13→14 条（新增马库斯·威廉姆斯，报告注明非缺陷）。 ## 两点可选项，等你决定 1. [L103](孤章集/焚·燃·夜·雨.md#L103) 与 [L177](孤章集/焚·燃·夜·雨.md#L177) 里同一名字在同一段出现两次（原作就是两个空白），若想读起来更顺，第二处可改成「他」。 2. 那 5 个喽啰的名字我没登记进 **关联人物**（你授权的范围只含马库斯·威廉姆斯），需要的话我补上；另外年表 2074 年条目前只写到年、未含 10 月 19—20 日这个精确日期，也可一并补齐。 ⚠️ 一个副作用需要说明：我查过一次 GraphFlow，它的存储随即做了迁移——被 git 跟踪的 `graphflow-out/graphflow-graph.json` 一度被它移走，我已用 `git checkout` 还原；工作区里多出 `.graphflow-cache/`、`graphflow-out/graphflow-graph.sqlite`、`graphflow-graph.json.merged-bak`、`token-savings.json` 这几个未跟踪文件（含查询前的图状态备份），我没有删除，要清理请说一声。\",\"jumped\":false,\"relatedNodeIds\":[],\"createdAt\":1790759143945,\"updatedAt\":1790759143945,\"title\":\"(assistant reply fill)\",\"summary\":\"已完成修正，并通过了仓库自带的校验\"}",
-        "seq": 1,
-        "sessionId": "dialogue-session:hylfgx",
-        "jumped": false
-      }
     }
   ],
   "edges": [
@@ -212,26 +190,6 @@
       "from": "dialogue:1q2waix:0007",
       "to": "dialogue:1q2waix:0006",
       "relation": "supersedes"
-    },
-    {
-      "from": "dialogue:hylfgx:0001",
-      "to": "dialogue-session:hylfgx",
-      "relation": "part_of"
-    },
-    {
-      "from": "dialogue:hylfgx:0001",
-      "to": "dialogue:1q2waix:0007",
-      "relation": "same_topic"
-    },
-    {
-      "from": "dialogue:hylfgx:0001",
-      "to": "dialogue:1q2waix:0006",
-      "relation": "same_topic"
-    },
-    {
-      "from": "dialogue:hylfgx:0001",
-      "to": "dialogue:1q2waix:0005",
-      "relation": "same_topic"
     }
   ]
 }

@@ -1,0 +1,31 @@
+{
+  "totalRuns": 0,
+  "totalRawTokens": 0,
+  "totalCompressedTokens": 0,
+  "totalSavedTokens": 0,
+  "averageSavingsPercent": 0,
+  "firstRunAt": null,
+  "lastRunAt": null,
+  "records": [
+    {
+      "timestamp": "2026-09-30T09:01:15.175Z",
+      "query": "焚·燃·夜·雨 短篇小说 中的人名空白/占位 与 Mirage 身份、被击杀目标姓名",
+      "rawTokens": 296,
+      "compressedTokens": 296,
+      "savingsPercent": 0,
+      "source": "preview_context",
+      "kind": "tokens-not-fidelity"
+    }
+  ],
+  "recentRecords": [
+    {
+      "timestamp": "2026-09-30T09:01:15.175Z",
+      "query": "焚·燃·夜·雨 短篇小说 中的人名空白/占位 与 Mirage 身份、被击杀目标姓名",
+      "rawTokens": 296,
+      "compressedTokens": 296,
+      "savingsPercent": 0,
+      "source": "preview_context",
+      "kind": "tokens-not-fidelity"
+    }
+  ]
+}
