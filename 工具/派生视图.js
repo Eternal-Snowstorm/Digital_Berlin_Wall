@@ -32,6 +32,35 @@ const COLLAB_FILES = [
   WORLD_DIR + '/术语与概念.md',
 ];
 
+/**
+ * 装备类型(即 武器与装备设定集/<势力>/ 下的一级目录名)的受控词表.
+ * 取值与 设定集模板/5-武器与装备设定集模板.md 及 CONTRIBUTING.md 07 第一条保持一致;
+ * 新增分型时三处同步, 既有装备文件无需改动(见 CONTRIBUTING.md 01 第三条).
+ */
+const WEAPON_TYPES = [
+  '枪械',
+  '近战武器',
+  '爆炸物',
+  '单兵外骨骼',
+  '植入体与防护',
+  '战术载具',
+  '无人作战单元',
+  '电子战装备',
+  '其他',
+];
+
+const WEAPON_TYPE_NOTE = {
+  '枪械': '含手枪、冲锋枪、步枪、机枪、霰弹枪等身管武器; 班组武器的整备质量与操作人数登记在 **性能数据** 内',
+  '近战武器': '含刀剑、钝器、穿刺与特种刃具; 以挥砍初速、刃部动能与有效刃长为主要指标',
+  '爆炸物': '含手榴弹、地雷、炸药包与爆破器材; 以装药量、杀伤半径与引信为登记重点',
+  '单兵外骨骼': '人形或拟人外骨骼, 单体穿戴后即构成一个作战平台',
+  '植入体与防护': '皮下植入体、防弹衣与各类个体防护装具',
+  '战术载具': '有人驾驶或多人操作的车辆、飞行器与舰艇',
+  '无人作战单元': '无人车、无人机、无人艇及其集群系统',
+  '电子战装备': '干扰、欺骗、频谱压制与电子对抗器材',
+  '其他': '未列入上述分型, 或归属于所属势力但不属于任何作战用途的装备',
+};
+
 const FIELD_RE = /^\*\*\s*([^*\s]+?)\s*\*\*\s*[:：]?\s*(.*)$/;
 
 /** 去掉行内被转义的星号, 使 \\*\\*所属势力\\*\\* 之类的写法仍可解析 */
@@ -311,6 +340,13 @@ function collect() {
     if (w.fieldType && w.fieldType !== dirType) {
       issue('warn', f, d.fieldLines['装备类型'], '**装备类型**「' + w.fieldType + '」与所在目录「' + dirType + '」不一致');
     }
+    if (!w.fieldType) {
+      issue('info', f, 0, '未登记 **装备类型**; 分型现由所在目录「' + dirType + '」推得, 建议按 CONTRIBUTING.md 07 第二条补齐');
+    }
+    if (WEAPON_TYPES.indexOf(dirType) < 0) {
+      issue('warn', f, 0, '所在目录「' + dirType + '」不是受控装备类型; 取值为 ' + WEAPON_TYPES.join('／') +
+        '(见 CONTRIBUTING.md 07 第一条)');
+    }
     const fac = data.factionByName.get(dirFaction);
     if (fac) fac.weapons.push(w);
     if (d.stray.length) {
@@ -340,6 +376,15 @@ function collect() {
 
 /* ---------- 生成 ---------- */
 
+/** 出现在目录中但不在受控词表内的装备类型目录名(按出现顺序去重) */
+function extraTypes(data) {
+  const out = [];
+  for (const w of data.weapons) {
+    if (w.dirType && WEAPON_TYPES.indexOf(w.dirType) < 0 && out.indexOf(w.dirType) < 0) out.push(w.dirType);
+  }
+  return out;
+}
+
 function renderIndex(data) {
   const now = new Date();
   const stamp = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
@@ -359,6 +404,8 @@ function renderIndex(data) {
   L.push('- [人物总表](#人物总表)');
   L.push('- [篇目总表](#篇目总表)');
   L.push('- [装备总表](#装备总表)');
+  L.push('- [装备分型](#装备分型)');
+  L.push('- [装备相关门类](#装备相关门类)');
   L.push('- [世界观门类](#世界观门类)');
   L.push('');
 
@@ -425,6 +472,63 @@ function renderIndex(data) {
       (w.unit || '（待补充）') + ' | ' + (w.echelon || '（待补充）') + ' |');
   }
   L.push('');
+
+  L.push('## 装备分型');
+  L.push('');
+  L.push('> 分型即 ' + inline('武器与装备设定集/<势力>/') + ' 下的一级目录名, 由目录结构派生; 受控词表见 ' +
+    inline('CONTRIBUTING.md 07 第一条') + ' 与 ' + inline('设定集模板/5-武器与装备设定集模板.md') + '。');
+  L.push('');
+  for (const t of WEAPON_TYPES.concat(extraTypes(data))) {
+    const group = data.weapons.filter(function (w) { return w.dirType === t; });
+    if (!group.length) continue;
+    L.push('### ' + t + '（' + group.length + '）');
+    L.push('');
+    if (WEAPON_TYPE_NOTE[t]) L.push('> ' + WEAPON_TYPE_NOTE[t]);
+    L.push('');
+    for (const w of group) {
+      L.push('- ' + mdLink(w.name, w.doc.file) + '　' + w.dirFaction);
+    }
+    L.push('');
+  }
+
+  L.push('## 装备相关门类');
+  L.push('');
+  L.push('> 世界观门类中与装备设定直接相关的部分。各门类在自身的「与其他设定的关联」一节登记**接口字段**, ' +
+    '即装备文件引用该门类时所依据的字段名。本节由各门类文件自身的字段派生, 不手工维护。');
+  L.push('');
+  const mods = data.world.filter(function (w) { return /弹道|弹药|装备|武器/.test(w.name); });
+  if (mods.length) {
+    for (const w of mods) {
+      L.push('### ' + mdLink(w.doc.title || w.name, w.doc.file));
+      L.push('');
+      // 只在「与其他设定的关联」一节内取接口字段, 避免误取概述中的加粗条目
+      const apis = [];
+      let inRel = false;
+      for (const line of w.doc.lines) {
+        const h = cleanEscapes(line).match(/^(#{2,6})\s*(.*)$/);
+        if (h) {
+          inRel = /关联/.test(h[2]);
+          continue;
+        }
+        if (!inRel) continue;
+        const plain = cleanEscapes(line).split('`').join('');
+        const m = plain.match(/^\s*[-*]\s*\*\*\s*(.+?)\s*\*\*\s*[:：]\s*(.*)$/);
+        if (!m) continue;
+        apis.push({ field: m[1].trim(), note: m[2].trim().split('**').join('') });
+      }
+      if (apis.length) {
+        L.push('| 接口字段 | 该字段的含义与取值范围 |');
+        L.push('| --- | --- |');
+        for (const a of apis) L.push('| ' + inline(a.field) + ' | ' + a.note + ' |');
+      } else {
+        L.push('（该门类未在「与其他设定的关联」一节登记接口字段）');
+      }
+      L.push('');
+    }
+  } else {
+    L.push('（暂无装备相关门类）');
+    L.push('');
+  }
 
   L.push('## 世界观门类');
   L.push('');
