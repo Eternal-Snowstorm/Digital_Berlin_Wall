@@ -1,6 +1,6 @@
 # Digital_Berlin_Wall
 
-A Settings Set by Vechni_Metel
+A Settings Set by Eternal_Snowstorm
 
 数字柏林墙设定集--以架空历史的欧洲大陆为舞台的赛博朋克世界观设定集.
 
